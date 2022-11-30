@@ -18,5 +18,5 @@ curso de Engenharia de Computação da UFPB. O grupo é composto por:
 ### Para compilar e rodar o projeto:
 
 * `$ cmake --build build`
-* `$ cd build && ./otimiza_papai_noel` 
+* `$ ./build/otimiza_papai_noel` 
 
