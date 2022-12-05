@@ -17,7 +17,7 @@ class GiftStock {
     
     GiftStock(const char*);
     GiftStock();
-    //void printProblemInstance();
+    void printProblemInstance();
 
 };
 
