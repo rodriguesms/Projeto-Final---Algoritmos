@@ -1,7 +1,8 @@
 #include <iostream>
+#include "../classes/interfaces/gift_stock.h"
 
 int main(){
 
-  std::cout << "Teste" << std::endl;
+  GiftStock giftStock = GiftStock("./data/instances/n30_k150_A.txt");
   return 0;
 }
