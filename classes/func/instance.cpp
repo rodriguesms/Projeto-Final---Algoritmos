@@ -1,4 +1,4 @@
-#include "../interfaces/gift_stock.h"
+#include "../interfaces/instance.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ std::vector<unsigned int> getVectorNumberFromString(string str){
   return array;
 }
 
-GiftStock::GiftStock(){
+Instance::Instance(){
   this->gift_quant=0;
   this->sled_quant=0;
   this->max_weight=0;
@@ -27,7 +27,7 @@ GiftStock::GiftStock(){
   this->restrictions = {};
 }
 
-GiftStock::GiftStock(const char *path){
+Instance::Instance(const char *path){
   std::fstream file;
   std::vector<std::string> lines;
 
@@ -66,7 +66,7 @@ GiftStock::GiftStock(const char *path){
   }
 }
 
-void GiftStock::printProblemInstance(){
+void Instance::printProblemInstance(){
   std::cout << "Gift quantity: " << gift_quant << std::endl;
   std::cout << "Sled quantity: " << sled_quant << std::endl;
   std::cout << "Max weight (Kg): " << max_weight << std::endl;

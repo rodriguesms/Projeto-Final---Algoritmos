@@ -1,10 +1,10 @@
 #include "../interfaces/greedy.h"
 
 Greedy::Greedy(){
-  data = GiftStock();
+  data = Instance();
   min_sleds = 0;
 }
 
-Greedy::Greedy(GiftStock instance) {
+Greedy::Greedy(Instance instance) {
   
 }

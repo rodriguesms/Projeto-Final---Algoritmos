@@ -1,5 +1,5 @@
-#ifndef GIFT_STOCK_H
-#define GIFT_STOCK_H
+#ifndef INSTANCE_H
+#define INSTANCE_H
 
 #include <vector>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include <sstream>
 #include "restrictions.h"
 
-class GiftStock {
+class Instance {
   public:
     unsigned int gift_quant;
     unsigned int sled_quant;
@@ -16,8 +16,8 @@ class GiftStock {
     std::vector<int> gift_weights;
     Restrictions restrictions;
     
-    GiftStock(const char*);
-    GiftStock();
+    Instance(const char*);
+    Instance();
     void printProblemInstance();
 
 };
