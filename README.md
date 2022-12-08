@@ -12,4 +12,12 @@ curso de Engenharia de Computação da UFPB. O grupo é composto por:
 
 ### Para compilar e rodar o projeto:
 
+* `$ mkdir build` 
+
+#### Linux:
+
 * `$ make` 
+
+#### Windows:
+
+* `$ g++ src/main.cpp ./classes/func/*.cpp -o exec; mv exec.exe build; build/exec.exe`
