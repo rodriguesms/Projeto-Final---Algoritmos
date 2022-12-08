@@ -20,4 +20,4 @@ curso de Engenharia de Computação da UFPB. O grupo é composto por:
 
 #### Windows:
 
-* `$ g++ src/main.cpp ./classes/func/*.cpp -o exec; mv exec.exe build; build/exec.exe`
+* `$ g++ src/main.cpp ./classes/func/*.cpp -o exec; mv -Force exec.exe build; build/exec.exe`
