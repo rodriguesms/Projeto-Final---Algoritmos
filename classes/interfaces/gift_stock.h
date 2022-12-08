@@ -5,15 +5,16 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "restrictions.h"
 
 class GiftStock {
   public:
-    int gift_quant;
-    int sled_quant;
-    int max_weight;
-    int restriction_quant;
+    unsigned int gift_quant;
+    unsigned int sled_quant;
+    unsigned int max_weight;
+    unsigned int restriction_quant;
     std::vector<int> gift_weights;
-    std::vector<std::vector<int>> restrictions;
+    Restrictions restrictions;
     
     GiftStock(const char*);
     GiftStock();
