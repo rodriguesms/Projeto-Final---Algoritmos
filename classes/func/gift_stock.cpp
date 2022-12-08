@@ -2,9 +2,9 @@
 
 using namespace std;
 
-std::vector<int> getVectorNumberFromString(string str){
+std::vector<unsigned int> getVectorNumberFromString(string str){
   stringstream string_stream;
-  std::vector<int> array;
+  std::vector<unsigned int> array;
   string_stream << str;
   string aux_str;
   int aux_int;
@@ -46,20 +46,23 @@ GiftStock::GiftStock(const char *path){
 
   file.close();  
 
-  gift_quant = stoi(lines[1]);
-  sled_quant = stoi(lines[2]);
-  max_weight = stoi(lines[3]);
-  restriction_quant = stoi(lines[4]);
+  this->gift_quant = stoi(lines[1]);
+  this->sled_quant = stoi(lines[2]);
+  this->max_weight = stoi(lines[3]);
+  this->restriction_quant = stoi(lines[4]);
 
   std::stringstream bString(lines[6]);
   std::string bStringValue;
 
   while(getline(bString, bStringValue, ' ')){
-    gift_weights.push_back(stoi(bStringValue));
+    this->gift_weights.push_back(stoi(bStringValue));
   }
 
+  this->restrictions = Restrictions(this->gift_quant);
+
   for(int i = 8; i < lines.size(); i++){
-    restrictions.push_back(getVectorNumberFromString(lines[i]));
+    std::vector<unsigned int> restriction = getVectorNumberFromString(lines[i]);
+    restrictions.addEdge(restriction[0], restriction[1]);
   }
 }
 
@@ -75,15 +78,5 @@ void GiftStock::printProblemInstance(){
   }
   std::cout << " ]" << std::endl;
 
-  std::cout << restrictions[24][1] << std::endl;
-
-  std::cout << "Restrictions: [ ";
-  for(int i = 0; i < restriction_quant; i++){
-    std::cout << "{ ";
-    for(int j = 0; j < 2; j++){
-      std::cout << restrictions[i][j] << " ";
-    }
-    std::cout << "} ";
-  }
-  std::cout << "]" << std::endl;
+  restrictions.printAdjacency();
 }
