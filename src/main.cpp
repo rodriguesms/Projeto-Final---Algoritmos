@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../classes/interfaces/gift_stock.h"
+#include "../classes/interfaces/instance.h"
 
 int main(){
 
-  GiftStock giftStock = GiftStock("./data/instances/n30_k150_A.txt");
-  giftStock.printProblemInstance();
+  Instance instance = Instance("./data/instances/n30_k150_A.txt");
+  instance.printProblemInstance();
   return 0;
 }
