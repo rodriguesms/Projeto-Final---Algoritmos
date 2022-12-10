@@ -5,11 +5,11 @@ Greedy::Greedy(){ }
 Greedy::Greedy(Instance &instance) {
  
   /*
-  * Order Gifts by the Greedy Choice: Inversely proportional to the weight
+  * Order Gifts by the Greedy Choice: Heavier gifts
   */
   std::sort(instance.gifts.begin(), instance.gifts.end(),
     [](const Gift& giftL, const Gift& giftR){
-      return giftL.weight < giftR.weight;
+      return giftL.weight > giftR.weight;
     });
   
   for(Gift gift : instance.gifts){
