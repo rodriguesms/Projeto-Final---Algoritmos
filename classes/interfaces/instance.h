@@ -6,14 +6,14 @@
 #include <iostream>
 #include <sstream>
 #include "restrictions.h"
+#include "gift.h"
+#include "sled.h"
 
 class Instance {
   public:
-    unsigned int gift_quant;
-    unsigned int sled_quant;
     unsigned int max_weight;
-    unsigned int restriction_quant;
-    std::vector<int> gift_weights;
+    std::vector<Gift> gifts;
+    std::vector<Sled> sleds;
     Restrictions restrictions;
     
     Instance(const char*);

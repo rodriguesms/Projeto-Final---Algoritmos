@@ -19,11 +19,7 @@ std::vector<unsigned int> getVectorNumberFromString(string str){
 }
 
 Instance::Instance(){
-  this->gift_quant=0;
-  this->sled_quant=0;
   this->max_weight=0;
-  this->restriction_quant=0;
-  this->gift_weights = {};
   this->restrictions = {};
 }
 
@@ -46,19 +42,30 @@ Instance::Instance(const char *path){
 
   file.close();  
 
-  this->gift_quant = stoi(lines[1]);
-  this->sled_quant = stoi(lines[2]);
+  unsigned int gift_quant = stoi(lines[1]);
+  unsigned int sled_quant = stoi(lines[2]);
   this->max_weight = stoi(lines[3]);
-  this->restriction_quant = stoi(lines[4]);
+  unsigned int restriction_quant = stoi(lines[4]);
+  std::vector<unsigned int> gift_weights;
 
   std::stringstream bString(lines[6]);
   std::string bStringValue;
 
   while(getline(bString, bStringValue, ' ')){
-    this->gift_weights.push_back(stoi(bStringValue));
+    gift_weights.push_back(stoi(bStringValue));
   }
 
-  this->restrictions = Restrictions(this->gift_quant);
+  for(unsigned int i = 0; i < gift_weights.size(); i++){
+    unsigned int id = i+1;
+    this->gifts.push_back(Gift(id, gift_weights[i]));
+  }
+
+  for(unsigned int j = 0; j < sled_quant; j++){
+    unsigned int id = j+1;
+    this->sleds.push_back(Sled(id));
+  }
+
+  this->restrictions = Restrictions(gift_quant);
 
   for(int i = 8; i < lines.size(); i++){
     std::vector<unsigned int> restriction = getVectorNumberFromString(lines[i]);
@@ -67,14 +74,13 @@ Instance::Instance(const char *path){
 }
 
 void Instance::printProblemInstance(){
-  std::cout << "Gift quantity: " << gift_quant << std::endl;
-  std::cout << "Sled quantity: " << sled_quant << std::endl;
-  std::cout << "Max weight (Kg): " << max_weight << std::endl;
-  std::cout << "Restriction quantity: " << restriction_quant << std::endl;
+  std::cout << "Gift quantity: " << this->gifts.size() << std::endl;
+  std::cout << "Sled quantity: " << this->sleds.size() << std::endl;
+  std::cout << "Max weight (Kg): " << this->max_weight << std::endl;
   std::cout << "Gift weights: [ ";
 
-  for(int weight:gift_weights){
-    std::cout << weight << " ";
+  for(Gift gift:gifts){
+    std::cout << gift.weight << " ";
   }
   std::cout << " ]" << std::endl;
 
