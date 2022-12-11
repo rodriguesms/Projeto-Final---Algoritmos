@@ -19,7 +19,7 @@ class Instance {
     Instance(const char*);
     Instance();
     void printProblemInstance();
-
+    void printSleds();
 };
 
 #endif

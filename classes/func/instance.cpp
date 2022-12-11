@@ -73,6 +73,17 @@ Instance::Instance(const char *path){
   }
 }
 
+void Instance::printSleds(){
+  std::cout << "Sled quantity: " << this->sleds.size() << std::endl;
+  for(unsigned int i = 0; i < sleds.size(); i++){
+    std::cout << "Sled " << sleds[i].id << " ("<< sleds[i].allocated_gifts.size()<<" gifts): [ ";
+    for(unsigned int j = 0; j < sleds[i].allocated_gifts.size(); j++){
+      std::cout << sleds[i].allocated_gifts[j].id << " ";
+    }
+    std::cout << "] (Weight: " << sleds[i].getWeight() << " Kg)" << std::endl;
+  }
+}
+
 void Instance::printProblemInstance(){
   std::cout << "Gift quantity: " << this->gifts.size() << std::endl;
   std::cout << "Sled quantity: " << this->sleds.size() << std::endl;

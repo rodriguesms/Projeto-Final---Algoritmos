@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../classes/interfaces/instance.h"
 #include "../classes/interfaces/greedy.h"
+#include "../classes/interfaces/mov.h"
+
 
 int main(){
 
@@ -8,6 +10,11 @@ int main(){
   instance.printProblemInstance();
 
   Greedy greedy = Greedy(instance);
-  greedy.printSolution();
+  //greedy.printSolution();
+  instance.printSleds();
+
+  Mov mov = Mov(instance);
+  mov.printSolution();
+
   return 0;
 }
