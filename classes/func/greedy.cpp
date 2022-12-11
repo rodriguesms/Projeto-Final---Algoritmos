@@ -15,24 +15,24 @@ Greedy::Greedy(Instance &instance) {
   for(Gift gift : instance.gifts){
     for(unsigned int i = 0; i < instance.sleds.size(); i++){
       bool next_sled = false;
-      std::cout << "\nGift " << gift.id << " | Sled: " << instance.sleds[i].id << std::endl;
+      // std::cout << "\nGift " << gift.id << " | Sled: " << instance.sleds[i].id << std::endl;
       // Check if the present gift fits in this sled
       if(instance.sleds[i].getWeight()+gift.weight <= instance.max_weight){
-        std::cout << "Fitted (Gift weight: " << gift.weight << " Kg | Free capacity in sled: " 
-          << instance.max_weight-instance.sleds[i].getWeight() << " Kg)" << std::endl;
+        // std::cout << "Fitted (Gift weight: " << gift.weight << " Kg | Free capacity in sled: " 
+        //   << instance.max_weight-instance.sleds[i].getWeight() << " Kg)" << std::endl;
         // Check if there is a restriction between a gift allocated to this sled and the present gift
         for(Gift allocated_gift : instance.sleds[i].allocated_gifts){
           if(instance.restrictions.isNeighbour(gift.id, allocated_gift.id)){
-            std::cout << "The gift " << gift.id << " has a restriction to the gift " << allocated_gift.id 
-              << ", skipping this sled" << std::endl;
+            // std::cout << "The gift " << gift.id << " has a restriction to the gift " << allocated_gift.id 
+            //   << ", skipping this sled" << std::endl;
             // If there is a restriction, go to the next sled
             next_sled = true;
             break;
           }
         }
         if(!next_sled){ // Check if this gift can be allocated to this sled
-          std::cout << "Fitted and didn't have any restriction,  allocating gift " <<
-          gift.id << " to sled " << instance.sleds[i].id << " and moving foward to the next gift" << std::endl;
+          // std::cout << "Fitted and didn't have any restriction,  allocating gift " <<
+          // gift.id << " to sled " << instance.sleds[i].id << " and moving foward to the next gift" << std::endl;
           instance.sleds[i].addGift(gift);
           // If this sled is not in the min_sled solution, push it back
           if(!checkSledSolutionPresence(instance.sleds[i]))
@@ -42,8 +42,8 @@ Greedy::Greedy(Instance &instance) {
           break; // Go to the next gift
         }
       }else{
-        std::cout << "Didn't fit (Gift weight: " << gift.weight << " Kg | Free capacity in sled: " 
-          << instance.max_weight-instance.sleds[i].getWeight() << " Kg)" << std::endl;
+        // std::cout << "Didn't fit (Gift weight: " << gift.weight << " Kg | Free capacity in sled: " 
+        //   << instance.max_weight-instance.sleds[i].getWeight() << " Kg)" << std::endl;
       }
       continue; // Go to the next sled
     }
@@ -58,8 +58,9 @@ bool Greedy::checkSledSolutionPresence(Sled &sled){
   return false;
 }
 
-void Greedy::printSolution(){
-  std::cout << "\nSOLUTION: " << std::endl;
+void Greedy::printSolution(std::string &instanceName, unsigned int &optimalSolution){
+  std::cout << "\nGreedy solution (" << instanceName << "):" << std::endl;
+  std::cout << "Optimal solution: " << optimalSolution << std::endl;
   std::cout << "Minimum sled quantity: " << min_sleds.size() << std::endl;
   for(unsigned int i = 0; i < min_sleds.size(); i++){
     std::cout << "Sled " << min_sleds[i].id << " ("<< min_sleds[i].allocated_gifts.size()<<" gifts): [ ";
