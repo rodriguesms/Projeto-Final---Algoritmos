@@ -1,8 +1,8 @@
-#include "../interfaces/mov.h"
+#include "../interfaces/redistribute.h"
 
-Mov::Mov(){ }
+Redistribute::Redistribute(){ }
 
-Mov::Mov(Instance &instance){
+Redistribute::Redistribute(Instance &instance){
   
   Instance copy_instance = instance; 
   unsigned int add = 0;
@@ -86,7 +86,7 @@ Mov::Mov(Instance &instance){
   }
 } 
 
-void Mov::printSolution(){
+void Redistribute::printSolution(){
   std::cout << "\nSOLUTIONS\n" << std::endl;
   if(solutions.size() == 0){
     std::cout << "The algorithm did not find a better solution" << std::endl;
