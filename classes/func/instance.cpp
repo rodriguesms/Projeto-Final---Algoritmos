@@ -21,9 +21,14 @@ std::vector<unsigned int> getVectorNumberFromString(string str){
 Instance::Instance(){
   this->max_weight=0;
   this->restrictions = {};
+  this->instanceName = "";
 }
 
-Instance::Instance(const char *path){
+Instance::Instance(filesystem::path path){
+
+  this->instanceName = path.filename().string()
+    .substr(0, path.filename().string().find_last_of(".")); //removing extension
+
   std::fstream file;
   std::vector<std::string> lines;
 

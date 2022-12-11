@@ -17,7 +17,7 @@ class Greedy {
     
     Greedy(Instance &instance);
     Greedy();
-    void printSolution();
+    void printSolution(std::string &instanceName, unsigned int &optimalSolution);
     bool checkSledSolutionPresence(Sled &sled);
 };
 
