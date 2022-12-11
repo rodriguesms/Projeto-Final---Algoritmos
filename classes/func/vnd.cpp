@@ -25,6 +25,14 @@ Vnd::Vnd(Instance &instance, unsigned int &optimal){
             }
             if(redistribute.solutions[i].size() < greedy.min_sleds.size()){
               std::cout << "Find a solution using " << redistribute.solutions[i].size() << " sleds" << std::endl;
+              
+              for(unsigned int j = 0; j < redistribute.solutions[i].size(); j++){
+                std::cout << "[ ";
+                for(unsigned int k = 0; k < redistribute.solutions[i][j].allocated_gifts.size(); k++){
+                  std::cout << redistribute.solutions[i][j].allocated_gifts[k].id << " ";
+                }
+                std::cout << "]" << std::endl;
+              }
             }    
           }
         }else{
@@ -36,7 +44,6 @@ Vnd::Vnd(Instance &instance, unsigned int &optimal){
     std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
     std::cout << "Optimal solution: " << optimal << std::endl;
     std::cout << "Optimal solution found by greedy algorithm" << std::endl; 
-
   }
 } 
 
