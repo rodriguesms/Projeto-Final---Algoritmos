@@ -7,28 +7,28 @@ Vnd::Vnd(Instance &instance, unsigned int &optimal){
   Greedy greedy = Greedy(instance);
   //greedy.printSolution(instance.instanceName, optimal);
   if(greedy.min_sleds.size() > optimal){
-    std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
+    std::cout << "\n\nGreedy solution: " << greedy.min_sleds.size() << std::endl;
     std::cout << "Optimal solution: " << optimal << std::endl;
-    std::cout << "Optimal solution doesn't find, trying neighborhood moves"<< std::endl;
+    std::cout << "Optimal solution wasn't found, trying neighborhood moves"<< std::endl;
     switch(move){
       case 0:
         move++;
       case 1:
-        std::cout << "Trying optimize with redistribution" << std::endl;
+        std::cout << "Trying optimization with redistribution" << std::endl;
         Redistribute redistribute = Redistribute(instance);
         if(redistribute.solutions.size() > 0){
           std::cout << "Find " << redistribute.solutions.size() << " solutions" << std::endl;
           for(unsigned int i = 0; i <  redistribute.solutions.size(); i++){
             if(redistribute.solutions[i].size() == optimal){
-              std::cout << "Redistribute find a optimal solution" << std::endl;
+              std::cout << "Redistribution found an optimal solution" << std::endl;
               break; //já que é ótima, pego a primeira
             }
             if(redistribute.solutions[i].size() < greedy.min_sleds.size()){
-              std::cout << "Find a solution using " << redistribute.solutions[i].size() << " sleds" << std::endl;
+              std::cout << "Found a solution using " << redistribute.solutions[i].size() << " sleds" << std::endl;
             }    
           }
         }else{
-          std::cout << "Redistribute dont find a better solution" << std::endl;
+          std::cout << "Redistribution didn't found a better solution" << std::endl;
         }
         
     }
@@ -43,7 +43,7 @@ Vnd::Vnd(Instance &instance, unsigned int &optimal){
 void Vnd::printSolution(){
   std::cout << "\nSOLUTIONS\n" << std::endl;
   if(solutions.size() == 0){
-    std::cout << "The algorithm did not find a better solution" << std::endl;
+    std::cout << "The algorithm did not found a better solution" << std::endl;
   }else{
     for(unsigned int i = 0; i < solutions.size(); i++){
       std::cout << "\nSOLUTION " << i+1 << std::endl;
