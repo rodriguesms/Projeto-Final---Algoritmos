@@ -9,6 +9,7 @@
 class Mov {
   public:
     std::vector<Sled> min_sleds;
+    std::vector<std::vector<Sled>> solutions;
     std::vector<Gift> removed_gifts;
 
     Mov(Instance &instance);

@@ -6,12 +6,12 @@
 
 int main(){
 
-  Instance instance = Instance("./data/instances/n30_k150_A.txt");
+  Instance instance = Instance("./data/instances/n120_k150_B.txt");
   instance.printProblemInstance();
 
   Greedy greedy = Greedy(instance);
-  //greedy.printSolution();
-  instance.printSleds();
+  greedy.printSolution();
+  //instance.printSleds();
 
   Mov mov = Mov(instance);
   mov.printSolution();
