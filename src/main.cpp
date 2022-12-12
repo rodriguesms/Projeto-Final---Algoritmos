@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include <chrono>
 
 #include "../classes/interfaces/instance.h"
 #include "../classes/interfaces/greedy.h"
@@ -10,7 +11,7 @@
 #include "../classes/interfaces/vnd.h"
 
 int main(){
-
+  auto start = std::chrono::steady_clock::now();
   std::string instancesPath = "./data/instances";
   std::vector<Instance> instances;
   std::vector<Greedy> instance_greedy_results;
@@ -44,5 +45,8 @@ int main(){
   //   // Redistribute test = Redistribute(instances[i]);
   //   // test.printSolution();
   // }
+
+  auto end = std::chrono::steady_clock::now();
+  std::cout << "Time taken: " << std::chrono::duration<double,std::milli>(end-start).count() << "ms" << std::endl;
   return 0;
 }

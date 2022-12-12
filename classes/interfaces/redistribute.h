@@ -12,7 +12,7 @@ class Redistribute {
     std::vector<std::vector<Sled>> solutions;
     std::vector<Gift> removed_gifts;
 
-    Redistribute(Instance &instance);
+    Redistribute(std::vector<Sled> &instance, Instance &original_instance);
     Redistribute();
     void printSolution();
 };

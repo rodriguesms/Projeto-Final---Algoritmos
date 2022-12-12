@@ -11,7 +11,7 @@ class Swaps{
     std::vector<std::vector<Sled>> solutionsSwap;
 
     Swaps();
-    Swaps(Greedy &greddySolution, Instance &instance); 
+    Swaps(Instance &instance); 
 
     void printSolutionSwaps(); 
 };

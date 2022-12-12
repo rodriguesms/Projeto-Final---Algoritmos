@@ -3,47 +3,44 @@
 Vnd::Vnd(){ }
 
 Vnd::Vnd(Instance &instance, unsigned int &optimal){
-  unsigned int move = 0;
   Greedy greedy = Greedy(instance);
   //greedy.printSolution(instance.instanceName, optimal);
   if(greedy.min_sleds.size() > optimal){
-    std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
-    std::cout << "Optimal solution: " << optimal << std::endl;
-    std::cout << "Optimal solution doesn't find, trying neighborhood moves"<< std::endl;
-    switch(move){
-      case 0:
-        move++;
-      case 1:
-        std::cout << "Trying optimize with redistribution" << std::endl;
-        Redistribute redistribute = Redistribute(instance);
-        if(redistribute.solutions.size() > 0){
-          std::cout << "Find " << redistribute.solutions.size() << " solutions" << std::endl;
-          for(unsigned int i = 0; i <  redistribute.solutions.size(); i++){
-            if(redistribute.solutions[i].size() == optimal){
-              std::cout << "Redistribute find a optimal solution" << std::endl;
-              break; //já que é ótima, pego a primeira
-            }
-            if(redistribute.solutions[i].size() < greedy.min_sleds.size()){
-              std::cout << "Find a solution using " << redistribute.solutions[i].size() << " sleds" << std::endl;
-              
-              for(unsigned int j = 0; j < redistribute.solutions[i].size(); j++){
-                std::cout << "[ ";
-                for(unsigned int k = 0; k < redistribute.solutions[i][j].allocated_gifts.size(); k++){
-                  std::cout << redistribute.solutions[i][j].allocated_gifts[k].id << " ";
-                }
-                std::cout << "]" << std::endl;
-              }
-            }    
-          }
-        }else{
-          std::cout << "Redistribute dont find a better solution" << std::endl;
+    // std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
+    // std::cout << "Optimal solution: " << optimal << std::endl;
+    // std::cout << "Optimal solution doesn't find, trying neighborhood moves"<< std::endl;
+
+    Swaps swap = Swaps(instance);
+    // std::cout << "Find " << swap.solutionsSwap.size() << " swap possibilities" << std::endl;
+    //swap.printSolutionSwaps();/
+    unsigned int random_choice = rand() % swap.solutionsSwap.size();
+    //std::cout << random_choice << std::endl;
+    Redistribute redistribute = Redistribute(swap.solutionsSwap[random_choice], instance);
+      unsigned int solution = 100000;
+      unsigned int qtd_solution = 0;
+      if(redistribute.solutions.size() > 0){
+        qtd_solution = redistribute.solutions.size();
+        //std::cout << "Find " << redistribute.solutions.size() << " solutions" << std::endl;
+        for(unsigned int i = 0; i <  redistribute.solutions.size(); i++){
+          if(redistribute.solutions[i].size() == optimal){
+            // std::cout << "Redistribute find a optimal solution" << std::endl;
+            qtd_solution = optimal;
+            break; //já que é ótima, pego a primeira
+          }else if(redistribute.solutions[i].size() < greedy.min_sleds.size()){
+            solution > redistribute.solutions[i].size() ? solution = redistribute.solutions[i].size() : solution = solution;
+            // std::cout << "Find " << redistribute.solutions.size() << " solutions using " << redistribute.solutions[i].size() << " sleds" <<std::endl;
+          }    
         }
-        
-    }
+      }else{
+        // std::cout << "Redistribute dont find a better solution" << std::endl;
+      }
+      if(qtd_solution > 0 && qtd_solution != optimal){
+        // std::cout << "Find " << qtd_solution << " solutions using " << solution << " sleds" <<std::endl;
+      }
   }else{
-    std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
-    std::cout << "Optimal solution: " << optimal << std::endl;
-    std::cout << "Optimal solution found by greedy algorithm" << std::endl; 
+    // std::cout << "Greedy solution: " << greedy.min_sleds.size() << std::endl;
+    // std::cout << "Optimal solution: " << optimal << std::endl;
+    // std::cout << "Optimal solution found by greedy algorithm" << std::endl; 
   }
 } 
 

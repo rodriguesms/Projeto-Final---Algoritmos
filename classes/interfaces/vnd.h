@@ -8,6 +8,7 @@
 #include "sled.h"
 #include "utils.h"
 #include "redistribute.h"
+#include "swaps.h"
 
 
 class Vnd {

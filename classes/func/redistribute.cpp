@@ -2,33 +2,33 @@
 
 Redistribute::Redistribute(){ }
 
-Redistribute::Redistribute(Instance &instance){
+Redistribute::Redistribute(std::vector<Sled> &instance, Instance &original_instance){
   
-  Instance copy_instance = instance; 
+  std::vector<Sled> copy_instance = instance; 
   unsigned int add = 0;
   unsigned int removed = 0;
 
-  for(unsigned int i = 0; i < instance.sleds.size(); i++){
+  for(unsigned int i = 0; i < instance.size(); i++){
     //Esvazia o trenó e adciona os presentes numa lista
-    for( Gift gift : copy_instance.sleds[i].allocated_gifts){
+    for( Gift gift : copy_instance[i].allocated_gifts){
       removed_gifts.push_back(gift);
     }
     //limpa o trenó
-    copy_instance.sleds[i].allocated_gifts.clear();
+    copy_instance[i].allocated_gifts.clear();
     //Tenta colocar presentes em outro carrinho
     //itera sobre os presentes que foram retirados
     for(int j = removed_gifts.size()-1; j >= 0; j--){
       //para cada presente percorre toda instancia
-      for(unsigned int k = 0; k < instance.sleds.size(); k++){
+      for(unsigned int k = 0; k < instance.size(); k++){
         bool can_be_added = true;
         //se o carrinho não estiver vazio, tenta adicionar o presente retirado nele
-        if(copy_instance.sleds[k].getWeight() > 0){
+        if(copy_instance[k].getWeight() > 0){
           //se o peso do presente removido + o preso do trenó for menor que o máxio, entra aqui, se não avisa que não cabe em nenhum
-          if(copy_instance.sleds[k].getWeight()+removed_gifts[j].weight <= instance.max_weight){
+          if(copy_instance[k].getWeight()+removed_gifts[j].weight <= original_instance.max_weight){
             //para cada presente dos presentes que já estão no trenó checa se tem restrição
-            for(Gift gift : instance.sleds[k].allocated_gifts){
+            for(Gift gift : instance[k].allocated_gifts){
               //se tiver restriçao, seta a flag que não dá pra adicionar pra false
-              if(instance.restrictions.isNeighbour(removed_gifts[j].id, gift.id)){
+              if(original_instance.restrictions.isNeighbour(removed_gifts[j].id, gift.id)){
               //  std::cout << "Gift " << removed_gifts[j].id << " has a restriction to the gift " << gift.id<< std::endl;
                 can_be_added = false;  
               }else{
@@ -46,7 +46,7 @@ Redistribute::Redistribute(Instance &instance){
           //se puder adicionar o presente em algum canto, adiciona e incrementa um contador em seguida retira ele da lista, independente de ter sido adicionado ou não
           if(can_be_added){
             // std::cout << "Gift " << removed_gifts[j].id << " added to sled " << copy_instance.sleds[k].id << std::endl;
-            copy_instance.sleds[k].addGift(removed_gifts[j]);
+            copy_instance[k].addGift(removed_gifts[j]);
             removed_gifts.pop_back();
             add++;
             removed++;
@@ -61,21 +61,16 @@ Redistribute::Redistribute(Instance &instance){
     }
     // std::cout << add <<" "<< removed << std::endl;
     //se o numero de presentes adicionados em outros trenós for igual ao de retirados do trenó da iteração, imprime um aviso
-    if(add == removed && instance.sleds[i].getWeight() > 0){
-      std::cout << "All gifts from sled " << i+1 << " were redistributed" << std::endl;
-      for(unsigned int x = 0; x < instance.sleds.size(); x++){
-        if(copy_instance.sleds[x].allocated_gifts.size() > 0){
-          min_sleds.push_back(copy_instance.sleds[x]);
+    if(add == removed && instance[i].getWeight() > 0){
+      // std::cout << "All gifts from sled " << i+1 << " were redistributed" << std::endl;
+      for(unsigned int x = 0; x < instance.size(); x++){
+        if(copy_instance[x].allocated_gifts.size() > 0){
+          min_sleds.push_back(copy_instance[x]);
         }
-        // std::cout << "[ ";
-        // for(unsigned int y = 0; y < copy_instance.sleds[x].allocated_gifts.size(); y++){
-        //     std::cout << copy_instance.sleds[x].allocated_gifts[y].id << " ";
-        // }
-        // std::cout << "]" <<std::endl;
       }
       solutions.push_back(min_sleds);
     }else{
-      std::cout << "All gifts from sled " << i+1 << " were not redistributed" << std::endl;
+      //std::cout << "All gifts from sled " << i+1 << " were not redistributed" << std::endl;
     }
 
     add = 0;
